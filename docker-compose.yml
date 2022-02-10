@@ -1,0 +1,21 @@
+version: '2'
+
+services:
+    proto:
+        build:
+            dockerfile: Dockerfile-proto
+            context: .
+        working_dir: /var/www
+        volumes:
+            - .:/var/www
+
+    example-grpc-laravel:
+        image: php:7.4.27-cli
+        build:
+            dockerfile: Dockerfile-app
+            context: .
+        working_dir: /var/www
+        ports:
+            - 8000:8000
+        volumes:
+            - .:/var/www

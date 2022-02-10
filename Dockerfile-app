@@ -1,0 +1,27 @@
+FROM php:7.4-cli
+
+RUN apt-get update && apt-get install -y \
+    git \
+    curl \
+    libpng-dev \
+    libonig-dev \
+    libxml2-dev \
+    zip \
+    unzip
+
+# Utils
+RUN apt-get update -yqq && \
+    apt-get upgrade -yqq && \ 
+    apt-get install -y unzip build-essential git software-properties-common curl pkg-config zip zlib1g-dev
+
+# Composer installation
+COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
+
+# Enable extensions
+RUN echo starting && \
+    apt-get update && \
+    apt-get install libz-dev && \
+    pecl install grpc && \
+    pecl install protobuf && \
+    docker-php-ext-enable grpc && \
+    docker-php-ext-enable protobuf

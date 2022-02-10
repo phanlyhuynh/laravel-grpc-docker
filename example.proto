@@ -1,0 +1,37 @@
+syntax="proto3";
+package example;
+
+option php_namespace="HuynhTest\\Example";
+option php_metadata_namespace="HuynhTest\\Example\\Meta";
+
+message SetRequest {
+    string Key = 1;
+    string Value = 2;
+}
+
+message SetResponse {
+    bool OK = 1;
+}
+
+message DelRequest {
+    string Key = 1;
+}
+
+message DelResponse {
+    bool OK = 1;
+}
+
+message GetRequest {
+    string Key = 1;
+}
+
+message GetResponse {
+    string Key = 1;
+    string Value = 2;
+}
+
+service Example {
+    rpc Set(SetRequest) returns (SetResponse);
+    rpc Del(DelRequest) returns (DelResponse);
+    rpc Get(GetRequest) returns (GetResponse);
+}
